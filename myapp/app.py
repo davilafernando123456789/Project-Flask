@@ -75,7 +75,84 @@ def register():
 @app.route('/menu')
 def menu():
     if 'user_id' in session:
-        return render_template('menu.html')
+        return render_template('home.html')
+    else:
+        return redirect('/login')
+
+# Ruta para mostrar todos los cursos
+@app.route('/cursos')
+def cursos():
+    if 'user_id' in session:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM cursos")
+        cursos = cur.fetchall()
+        cur.close()
+        return render_template('cursos.html', cursos=cursos)
+    else:
+        return redirect('/login')
+
+# Ruta para agregar un nuevo curso
+@app.route('/cursos/agregar', methods=['GET', 'POST'])
+def agregar_curso():
+    if 'user_id' in session:
+        if request.method == 'POST':
+            codigo = request.form['codigo']
+            nombre = request.form['nombre']
+            creditos = request.form['creditos']
+            horas = request.form['horas']
+
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO cursos (codigo, nombre, creditos, horas) VALUES (%s, %s, %s, %s)",
+                        (codigo, nombre, creditos, horas))
+            mysql.connection.commit()
+            cur.close()
+
+            return redirect('/cursos')
+
+        return render_template('agregar_curso.html')
+    else:
+        return redirect('/login')
+
+# Ruta para editar un curso existente
+@app.route('/cursos/editar/<int:id>', methods=['GET', 'POST'])
+def editar_curso(id):
+    if 'user_id' in session:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM cursos WHERE codigo = %s", (id,))
+        curso = cur.fetchone()
+        cur.close()
+
+        if not curso:
+            return redirect('/cursos')
+
+        if request.method == 'POST':
+            codigo = request.form['codigo']
+            nombre = request.form['nombre']
+            creditos = request.form['creditos']
+            horas = request.form['horas']
+
+            cur = mysql.connection.cursor()
+            cur.execute("UPDATE cursos SET codigo = %s, nombre = %s, creditos = %s, horas = %s WHERE id = %s",
+                        (codigo, nombre, creditos, horas, id))
+            mysql.connection.commit()
+            cur.close()
+
+            return redirect('/cursos')
+
+        return render_template('editar_curso.html', curso=curso)
+    else:
+        return redirect('/login')
+
+# Ruta para eliminar un curso existente
+@app.route('/cursos/eliminar/<int:id>', methods=['GET', 'POST'])
+def eliminar_curso(id):
+    if 'user_id' in session:
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM cursos WHERE codigo = %s", (id,))
+        mysql.connection.commit()
+        cur.close()
+
+        return redirect('/cursos')
     else:
         return redirect('/login')
 

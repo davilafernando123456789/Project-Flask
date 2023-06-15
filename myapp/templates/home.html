@@ -1,0 +1,16 @@
+{% extends 'menu.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+    <div>
+        <img src="http://lapatria.pe/web/wp-content/uploads/2018/03/TECSUP.jpg" class="img-fluid">
+    </div>
+    <p>Derechos reservados@Developer</p>
+    
+{% endblock %}

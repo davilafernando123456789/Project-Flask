@@ -1,0 +1,40 @@
+{% extends 'menu.html' %}
+
+{% block title %}
+    Agregar cursos
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <h3 class="mt-4">Agregar Curso</h3>
+                {% if error %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endif %}
+                <form class="mt-4" method="POST" action="/cursos/agregar">
+                    <div class="form-group">
+                        <label for="codigo">Código:</label>
+                        <input type="text" class="form-control" id="codigo" name="codigo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="creditos">Créditos:</label>
+                        <input type="number" class="form-control" id="creditos" name="creditos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="horas">Horas:</label>
+                        <input type="number" class="form-control" id="horas" name="horas" required>
+                    </div>
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                        <a href="/cursos" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

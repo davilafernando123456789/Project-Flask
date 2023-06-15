@@ -1,0 +1,40 @@
+{% extends 'menu.html' %}
+
+{% block title %}
+    Cursos
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="mt-4">Lista de Cursos</h3>
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Créditos</th>
+                            <th>Horas</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for curso in cursos %}
+                        <tr>
+                            <td>{{ curso.codigo }}</td>
+                            <td>{{ curso.nombre }}</td>
+                            <td>{{ curso.creditos }}</td>
+                            <td>{{ curso.horas }}</td>
+                            <td>
+                                <a href="/cursos/editar/{{ curso.codigo }}" class="btn btn-primary btn-sm">Editar</a>
+                                <a href="/cursos/eliminar/{{ curso.codigo }}" class="btn btn-danger btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
