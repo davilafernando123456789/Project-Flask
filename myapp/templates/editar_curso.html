@@ -5,9 +5,27 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2">
+<style>
+    body {
+        background: url('https://static.vecteezy.com/system/resources/previews/005/490/647/non_2x/bright-blue-wallpaper-for-website-banner-abstract-geometric-pattern-with-line-connection-and-light-particle-structure-of-energy-or-global-space-free-vector.jpg') fixed;
+        background-size: cover;
+    }
+
+    .bg-overlay {
+        position: relative;
+        background: linear-gradient(45deg,#cbe0ee, #2980b9);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 50px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="bg-overlay">
                 <h3 class="mt-4">Editar Curso</h3>
                 {% if error %}
                     <p class="text-danger">{{ error }}</p>
@@ -37,4 +55,5 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
